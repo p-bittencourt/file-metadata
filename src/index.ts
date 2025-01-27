@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import { createRoutes } from './routes';
 
 var app = express();
 
@@ -14,11 +15,7 @@ const publicPath = path.join(__dirname, 'public');
 app.use(express.static(viewsPath));
 app.use(express.static(publicPath));
 
-app.use('/public', express.static(process.cwd() + '/public'));
-
-app.get('/', function (req, res) {
-  res.sendFile(process.cwd() + '/views/index.html');
-});
+createRoutes(app);
 
 const port = process.env.PORT || 3000;
 app.listen(port, function () {
